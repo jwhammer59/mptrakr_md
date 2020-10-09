@@ -1,0 +1,55 @@
+<div class="main" fxLayout fxLayoutAlign="center center">
+  <mat-card>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout fxLayoutAlign="center center">
+        <h2>Login</h2>
+        <mat-icon>lock_open</mat-icon>
+      </div>
+      <div>
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit(loginForm)"
+          novalidate
+        >
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Enter your email"
+                formControlName="email"
+                required
+              />
+              <mat-icon *ngIf="!f.email.invalid" matSuffix>done</mat-icon>
+              <mat-icon *ngIf="f.email.invalid" matSuffix>report_problem</mat-icon>
+              <mat-error *ngIf="f.email.invalid">
+                {{ getEmailErrorMessage() }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Enter your password"
+                formControlName="password"
+                type="password"/>
+              <mat-icon *ngIf="!f.password.invalid" matSuffix>done</mat-icon>
+              <mat-icon *ngIf="f.password.invalid" matSuffix>report_problem</mat-icon>
+              <mat-error *ngIf="f.password.invalid">
+                {{ getPasswordErrorMessage() }}
+              </mat-error>
+            </mat-form-field>
+
+            <button
+              type="submit"
+              value="Submit"
+              mat-raised-button
+              color="primary"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-card>
+</div>

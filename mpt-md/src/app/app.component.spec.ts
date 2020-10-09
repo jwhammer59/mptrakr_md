@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'mpt-md'`, () => {
+  it(`should have as title 'mptrakr'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('mpt-md');
+    expect(app.title).toEqual('mptrakr');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('mpt-md app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('mptrakr app is running!');
   });
 });

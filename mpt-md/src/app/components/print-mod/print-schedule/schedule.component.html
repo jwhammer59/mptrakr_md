@@ -1,0 +1,41 @@
+<app-header [title]="headerTitle" [color]="headerColor"></app-header>
+<div fxLayout="column" fxLayoutAlign="center">
+  <div fxFlexAlign="center">
+    <h2>Event for {{ event.date.seconds * 1000 | date }}</h2>
+  </div>
+  <div fxLayout fxLayoutAlign="space-evenly">
+    <div>
+      <p>Type: {{ event.type }}</p>
+      <p>Cantor: {{ event.cantor }}</p>
+      <p>Lector 1: {{ event.lector1 }}</p>
+      <p>Lector 2: {{ event.lector2 }}</p>
+      <p>Server 1: {{ event.server1 }}</p>
+      <p>Server 2: {{ event.server2 }}</p>
+      <p>Server 3: {{ event.server3 }}</p>
+      <p>Gifts: {{ event.gifts }}</p>
+      <p>Child Gifts: {{ event.giftsChild }}</p>
+    </div>
+    <div>
+      <p>EMoHC 1: {{ event.eMoHC1 }}</p>
+      <p>EMoHC 2: {{ event.eMoHC2 }}</p>
+      <p>EMoHC 3: {{ event.eMoHC3 }}</p>
+      <p>EMoHC 4: {{ event.eMoHC4 }}</p>
+      <p>EMoHC 5: {{ event.eMoHC5 }}</p>
+      <p>EMoHC 6: {{ event.eMoHC6 }}</p>
+      <p>EMoHC 7: {{ event.eMoHC7 }}</p>
+      <p>Rosary 1: {{ event.rosary1 }}</p>
+      <p>Rosary 2: {{ event.rosary2 }}</p>
+    </div>
+    <div>
+      <p>Usher 1: {{ event.usher1 }}</p>
+      <p>Usher 2: {{ event.usher2 }}</p>
+      <p>Usher 3: {{ event.usher3 }}</p>
+      <p>Usher 4: {{ event.usher4 }}</p>
+      <p>Usher 5: {{ event.usher5 }}</p>
+      <p>Tech 1: {{ event.tech1 }}</p>
+      <p>Tech 2: {{ event.tech2 }}</p>
+      <p>Mass Cord: {{ event.massCord }}</p>
+      <p>Other: {{ event.other }}</p>
+    </div>
+  </div>
+</div>

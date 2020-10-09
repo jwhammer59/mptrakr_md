@@ -1,0 +1,105 @@
+<app-header [title]="headerTitle" [color]="headerColor"></app-header>
+<div fxLayout fxLayoutAlign="center center">
+  <div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ event.date.seconds * 1000 | date }}</mat-card-title>
+        <mat-card-subtitle>{{ event.type }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content align="center">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Lectors, Cantor & Gift Bearers
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Cantor: {{ event.cantor }}</p>
+            <p>Lector 1: {{ event.lector1 }}</p>
+            <p>Lector 2: {{ event.lector2 }}</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Extra Ordinary Ministers of Holy Communion
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>EMoHC 1: {{ event.eMoHC1 }}</p>
+            <p>EMoHC 2: {{ event.eMoHC2 }}</p>
+            <p>EMoHC 3: {{ event.eMoHC3 }}</p>
+            <p>EMoHC 4: {{ event.eMoHC5 }}</p>
+            <p>EMoHC 5: {{ event.eMoHC5 }}</p>
+            <p>EMoHC 6: {{ event.eMoHC6 }}</p>
+            <p>EMoHC 7: {{ event.eMoHC7 }}</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Ushers & Technology </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Usher 1: {{ event.usher1 }}</p>
+            <p>Usher 2: {{ event.usher2 }}</p>
+            <p>Usher 3: {{ event.usher3 }}</p>
+            <p>Usher 4: {{ event.usher4 }}</p>
+            <p>Usher 5: {{ event.usher5 }}</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Servers, Rosary & Other </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Server 1: {{ event.server1 }}</p>
+            <p>Server 2: {{ event.server2 }}</p>
+            <p>Server 3: {{ event.server3 }}</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <div fxLayout fxLayoutAlign="space-evenly">
+          <button
+            mat-stroked-button
+            routerLink="/events"
+            matRipple
+            color="primary"
+          >
+            <mat-icon>arrow_back</mat-icon>
+            Events
+          </button>
+          <button
+            mat-stroked-button
+            routerLink="/events/edit-event/{{ id }}"
+            matRipple
+          >
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+          <button
+            mat-stroked-button
+            color="accent"
+            [routerLink]="['/printing/schedule/', id]"
+          >
+            <mat-icon>print</mat-icon>
+            Print
+          </button>
+          <button
+            (click)="onDeleteClicked()"
+            mat-stroked-button
+            matRipple
+            color="warn"
+          >
+            <mat-icon>delete_outline</mat-icon>
+            Delete
+          </button>
+        </div>
+      </mat-card-actions>
+      <mat-card-footer align="end">
+        <p>
+          <span>Event is Full: </span>
+          <mat-checkbox [disabled]="true" [checked]="event.isFull">
+          </mat-checkbox>
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
