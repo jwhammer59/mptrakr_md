@@ -34,7 +34,7 @@
       <div fxFlex="33%" fxFlex.lt-md="100%">
         <mat-form-field>
           <input
-          (change)="setEventDate($event)"
+          (dateChange)="setEventDate($event)"
             matInput
             formControlName="date"
             [matDatepickerFilter]="dayAllowedFilter"

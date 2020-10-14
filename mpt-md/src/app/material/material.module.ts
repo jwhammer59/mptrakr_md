@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // Angular Material Button & Indicators Imports
 import { MatButtonModule } from '@angular/material/button';
@@ -61,6 +62,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatTabsModule
   ],
   exports: [
     MatButtonModule,
@@ -87,6 +89,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatTabsModule
   ],
 })
 export class MaterialModule {}

@@ -33,6 +33,8 @@ export class AddVolunteerComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.volunteerForm = this.fb.group({
+      dateUnAvailable: this.fb.array([]),
+      eventTypesAvaialbe: this.fb.array([]),
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
@@ -63,6 +65,8 @@ export class AddVolunteerComponent implements OnInit {
     // Get All Family ID's
     this.allFamilyIDs$ = this.familyIdService.getFamilyIDs();
   }
+
+
 
   onSubmit({ value, valid }: { value: Volunteer; valid: boolean }) {
     if (!valid) {

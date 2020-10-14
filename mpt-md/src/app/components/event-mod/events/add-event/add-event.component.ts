@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -78,18 +78,18 @@ export class AddEventComponent implements OnInit {
   selectedFamilyMembers$: Observable<any>;
 
   // Observables for Date Specific Form Inputs
-  cantorsByDate$: Observable<any>;
-  lectorsByDate$: Observable<any>;
-  serversByDate$: Observable<any>;
-  ushersByDate$: Observable<any>;
-  giftsByDate$: Observable<any>;
-  childGiftsByDate$: Observable<any>;
-  rosarysByDate$: Observable<any>;
-  techsByDate$: Observable<any>;
-  othersByDate$: Observable<any>;
-  eMoHCsByDate$: Observable<any>;
-  massCoordsByDate$: Observable<any>;
-  
+  filteredCantors$: Observable<any>;
+  filteredLectors$: Observable<any>;
+  filteredServers$: Observable<any>;
+  filteredUshers$: Observable<any>;
+  filteredGifts$: Observable<any>;
+  filteredChildGifts$: Observable<any>;
+  filteredRosarys$: Observable<any>;
+  filteredTechs$: Observable<any>;
+  filteredOthers$: Observable<any>;
+  filteredEMoHCs$: Observable<any>;
+  filteredMassCoords$: Observable<any>;
+
   addEventForm: FormGroup;
 
   eventTypes = EVENT_TYPES;
@@ -281,6 +281,7 @@ export class AddEventComponent implements OnInit {
   in preparation of selecting Date
   */
  onEventTypeChanged(e) {
+   console.log(e.value);
   this.currentEventType = e.value;
   this.resetPanels();
   this.disableFormInputs();
@@ -290,149 +291,105 @@ export class AddEventComponent implements OnInit {
 
 // Check event date against Event Type and verify they match
 setEventDate(e) {
-  
-  console.log(e);
-  // let selectedDate = new Date(e.target.value).getUTCDay();
-  // if (this.currentEventType === 'Saturday' && selectedDate === 6) {
-  //   this.autoSnackBar(
-  //     'Success',
-  //     'The date matches the Event Type - Saturday'
-  //   );
-  //   this.setFormInputsActive();
-  //   return;
-  // } else if (this.currentEventType === 'Saturday' && selectedDate !== 6) {
-  //   this.manualSnackBar('Error', 'The date must be a Saturday!');
-  //   return;
-  // } else if (this.currentEventType === 'Sunday-Early' && selectedDate === 0) {
-  //   this.autoSnackBar(
-  //     'Success',
-  //     'The date matches the Event Type - Sunday-Early'
-  //   );
-  //   this.setFormInputsActive();
-  //   return;
-  // } else if (this.currentEventType === 'Sunday-Early' && selectedDate !== 0) {
-  //   this.manualSnackBar('Error', 'Date must be a Sunday!');
-  //   return;
-  // } else if (this.currentEventType === 'Sunday-Late' && selectedDate == 0) {
-  //   this.autoSnackBar(
-  //     'Success',
-  //     'The date matches the Event Type - Sunday-Late'
-  //   );
-  //   this.setFormInputsActive();
-  //   return;
-  // } else if (this.currentEventType === 'Sunday-Late' && selectedDate !== 0) {
-  //   this.manualSnackBar('Error', 'The date must be a Sunday!');
-  //   return;
-  // } else if (
-  //   (this.currentEventType === 'Weekday' && selectedDate === 0) ||
-  //   (this.currentEventType === 'Weekday' && selectedDate === 6)
-  // ) {
-  //   this.manualSnackBar('Error', 'The date must be a Weekday!');
-  //   return;
-  // } else {
-  //   this.autoSnackBar(
-  //     'Success',
-  //     'The date matches the Event Type - Weekday'
-  //   );
-  //   this.setFormInputsActive();
-  // }
+  console.log(e.target.value);
+  this.eventDate = e.target.value;
+  this.setFormInputsActive();
 }
 
 // Prepare form inputs based on Event Type
 setFormInputsActive() {
   this.enableFormInputs();
   this.setActiveInputs();
-  this.getDateAvailableVolunteers();
+  this.getDateAvailableVolunteers(this.currentEventType);
 }
 
 // Get volunteers by ministry that are "Available" based on seleted Event Date
-getDateAvailableVolunteers() {
-  const day = 'Sat';
-  this.cantorsByDate$ = this.onlyCantors$.pipe(
+getDateAvailableVolunteers(eventType: string) {
+  this.filteredCantors$ = this.onlyCantors$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.lectorsByDate$ = this.onlyLectors$.pipe(
+  this.filteredLectors$ = this.onlyLectors$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.serversByDate$ = this.onlyServers$.pipe(
+  this.filteredServers$ = this.onlyServers$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.ushersByDate$ = this.onlyUshers$.pipe(
+  this.filteredUshers$ = this.onlyUshers$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.giftsByDate$ = this.onlyGifts$.pipe(
+  this.filteredGifts$ = this.onlyGifts$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.childGiftsByDate$ = this.onlyGiftsChild$.pipe(
+  this.filteredChildGifts$ = this.onlyGiftsChild$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.rosarysByDate$ = this.onlyRosarys$.pipe(
+  this.filteredRosarys$ = this.onlyRosarys$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.techsByDate$ = this.onlyTechs$.pipe(
+  this.filteredTechs$ = this.onlyTechs$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.othersByDate$ = this.onlyOthers$.pipe(
+  this.filteredOthers$ = this.onlyOthers$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.eMoHCsByDate$ = this.onlyEMoHCs$.pipe(
+  this.filteredEMoHCs$ = this.onlyEMoHCs$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 
-  this.massCoordsByDate$ = this.onlyMassCoords$.pipe(
+  this.filteredMassCoords$ = this.onlyMassCoords$.pipe(
     map((volunteers) =>
       volunteers.filter(
-        (volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
-      )
+        (volunteer: Volunteer) => !volunteer.dateUnAvailable.includes(this.eventDate)
+      ).filter((volunteer: Volunteer) => volunteer.eventTypesAvailable.includes(eventType))
     )
   );
 }
@@ -482,11 +439,11 @@ getDateAvailableVolunteers() {
     ) {
       // Check tabs for Saturday
       if (
-        this.f.cantor.value && 
-        this.f.lector1.value && 
-        this.f.lector2.value && 
-        this.f.server1.value && 
-        this.f.server2.value && 
+        this.f.cantor.value &&
+        this.f.lector1.value &&
+        this.f.lector2.value &&
+        this.f.server1.value &&
+        this.f.server2.value &&
         this.f.server3.value
       ) {
         this.panel1Ready = true;
@@ -499,7 +456,7 @@ getDateAvailableVolunteers() {
         this.f.eMoHC4.value &&
         this.f.eMoHC5.value &&
         this.f.eMoHC6.value &&
-        this.f.eMoHC7.value && 
+        this.f.eMoHC7.value &&
         this.f.tech1.value &&
         this.f.tech2.value
       ) {
@@ -529,8 +486,8 @@ getDateAvailableVolunteers() {
     } else if (this.currentEventType === 'Sunday-Early') {
       this.panel4Ready = true;
       if (
-        this.f.cantor.value && 
-        this.f.lector1.value && 
+        this.f.cantor.value &&
+        this.f.lector1.value &&
         this.f.lector2.value &&
         this.f.server1.value &&
         this.f.server2.value
@@ -651,6 +608,7 @@ getDateAvailableVolunteers() {
   }
 
   setActiveInputs() {
+    console.log(this.currentEventType);
     if (this.currentEventType === 'Weekday') {
       // Disable non used volunteers & set value to ''
       this.f.cantor.reset({ value: '', disabled: true });

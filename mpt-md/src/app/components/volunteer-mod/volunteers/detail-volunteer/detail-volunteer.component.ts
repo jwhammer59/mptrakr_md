@@ -40,6 +40,10 @@ export class DetailVolunteerComponent implements OnInit {
     isServer: false,
     isTech: false,
     isUsher: false,
+    isSaturday: false,
+    isSundayEarly: false,
+    isSundayLate: false,
+    isWeekday: false,
   };
 
   constructor(

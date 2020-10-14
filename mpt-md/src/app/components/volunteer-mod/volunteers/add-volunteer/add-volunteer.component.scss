@@ -2,8 +2,9 @@
   margin-left: 2rem;
 }
 
-.layout {
-  width: 80%;
+.layout,
+mat-tab-group {
+  width: 100%;
 }
 
 table {
@@ -29,6 +30,10 @@ button {
 }
 
 mat-card {
-  margin: 1rem 1rem;
   width: 95%;
+  margin-top: 1rem;
+}
+
+.dates {
+  margin-top: 2rem;
 }
